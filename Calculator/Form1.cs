@@ -12,81 +12,114 @@ namespace Calculator
 {
     public partial class Form1 : Form
     {
-        string input = string.Empty;
-        string operandLeft = string.Empty;
-        string operandRight = string.Empty;
-        char operation;
-        double result = 0.0;
+        protected string input = string.Empty;
+        protected string operandLeft = string.Empty;
+        protected string operandRight = string.Empty;
+        protected string operation = string.Empty;
+        protected double result = 0.0;
         
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        protected void calculate()
         {
-            input += "1";
-            this.textBox1.Text += input;
+            result = double.Parse(operandLeft) + double.Parse(operandRight);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        protected void handleCalculation()
         {
-            input += "2";
-            this.textBox1.Text += input;
+            operandRight = input;
+            calculate();
+            operandLeft = result.ToString();
+            operandRight = string.Empty;
+            textBox1.Text = result.ToString();
+            input = string.Empty;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        internal static string getTagValueFromButton(object sender)
         {
-            input += "3";
-            this.textBox1.Text += input;
+            Button button = sender as Button;
+
+            if (button != null)
+                return button.Tag.ToString();
+
+            throw new ArgumentException("Unexpected sender");
         }
 
-        private void button4_Click(object sender, EventArgs e)
+
+        #region button handlers
+        #region input buttons
+
+        private void operandInputButton_Click(object sender, EventArgs e)
         {
-            input += "4";
+            input += getTagValueFromButton(sender);
             this.textBox1.Text = input;
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            input += "5";
-            this.textBox1.Text = input;
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            input += "6";
-            this.textBox1.Text = input;
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            input += "7";
-            this.textBox1.Text = input;
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            input += "8";
-            this.textBox1.Text = input;
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            input += "9";
-            this.textBox1.Text = input;
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            input += "0";
-            this.textBox1.Text = input;
-        }
+        #endregion
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
+
+        #region operator buttons
+        //multiplication
+        private void button14_Click(object sender, EventArgs e)
+        {
+            if (operandLeft == string.Empty)
+            {
+                operandLeft = input;
+                input = string.Empty;
+            }
+                
+            else
+            {
+                handleCalculation();
+            }
+                
+            
+            //what if user has typed two operands in a sequence?
+            operation = "*";
+        }
+
+        //adding
+        private void button15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //dividing
+        private void button18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //substracting
+        private void button19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //calculating
+        private void button20_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion button handlers
 
     }
 }
