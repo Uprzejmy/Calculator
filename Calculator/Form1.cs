@@ -12,7 +12,6 @@ namespace Calculator
 {
     public partial class Form1 : Form
     {
-        protected string input = string.Empty;
         protected string operandLeft = string.Empty;
         protected string operandRight = string.Empty;
         protected string operation = string.Empty;
@@ -25,17 +24,16 @@ namespace Calculator
 
         protected void calculate()
         {
-            result = double.Parse(operandLeft) + double.Parse(operandRight);
+            result = double.Parse(operandLeft) * double.Parse(operandRight);
         }
 
         protected void handleCalculation()
         {
-            operandRight = input;
+            operandRight = this.textBox1.Text;
             calculate();
             operandLeft = result.ToString();
             operandRight = string.Empty;
-            textBox1.Text = result.ToString();
-            input = string.Empty;
+            this.textBox1.Text = result.ToString();
         }
 
         internal static string getTagValueFromButton(object sender)
@@ -54,8 +52,7 @@ namespace Calculator
 
         private void operandInputButton_Click(object sender, EventArgs e)
         {
-            input += getTagValueFromButton(sender);
-            this.textBox1.Text = input;
+            this.textBox1.Text += getTagValueFromButton(sender);
         }
 
         #endregion
@@ -71,8 +68,8 @@ namespace Calculator
         {
             if (operandLeft == string.Empty)
             {
-                operandLeft = input;
-                input = string.Empty;
+                operandLeft = this.textBox1.Text;
+                this.textBox1.Text = string.Empty;
             }
                 
             else
